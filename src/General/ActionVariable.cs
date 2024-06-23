@@ -1,26 +1,27 @@
 ﻿using System;
 
-namespace COILib.General {
+namespace COILib.General;
 
-    public class ActionVariable<T> {
-        private T _value;
+public class ActionVariable<T> {
+	private T m_value;
 
-        public event Action<T> Event;
+	public event Action<T> Event;
 
-        public ActionVariable(T value) {
-            Value = value;
-        }
+	public ActionVariable(T value) {
+		Value = value;
+	}
 
-        public T Value {
-            get => _value;
-            set {
-                if (!Equals(_value, value)) {
-                    _value = value;
-                    Event?.Invoke(_value);
-                }
-            }
-        }
+	public T Value {
+		get => m_value;
+		set {
+			if (Equals(m_value, value)) {
+				return;
+			}
 
-        public static implicit operator T(ActionVariable<T> variable) => variable._value;
-    }
+			m_value = value;
+			Event?.Invoke(m_value);
+		}
+	}
+
+	public static implicit operator T(ActionVariable<T> variable) => variable.m_value;
 }

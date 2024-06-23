@@ -1,0 +1,9 @@
+C:\Users\Keranik\AppData\Roaming\Captain of Industry\Mods\COILib\COILib.dll
+C:\Users\Keranik\AppData\Roaming\Captain of Industry\Mods\COILib\COILib.pdb
+C:\Users\Keranik\Source\Repos\COILibrary\src\obj\Release\COILib.csproj.AssemblyReference.cache
+C:\Users\Keranik\Source\Repos\COILibrary\src\obj\Release\COILib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Keranik\Source\Repos\COILibrary\src\obj\Release\COILib.csproj.CoreCompileInputs.cache
+C:\Users\Keranik\Source\Repos\COILibrary\src\obj\Release\COILib.sourcelink.json
+C:\Users\Keranik\Source\Repos\COILibrary\src\obj\Release\COILib.csproj.Up2Date
+C:\Users\Keranik\Source\Repos\COILibrary\src\obj\Release\COILib.dll
+C:\Users\Keranik\Source\Repos\COILibrary\src\obj\Release\COILib.pdb

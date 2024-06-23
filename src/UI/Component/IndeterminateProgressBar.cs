@@ -5,39 +5,44 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
 
-namespace COILib.UI.Component {
+namespace COILib.UI.Component;
 
-    public class IndeterminateProgressBar : UiComponentDecorated<VisualElement> {
-        private VisualElement _progress;
-        private float barWidth = 20f;
+public class IndeterminateProgressBar : UiComponentDecorated<VisualElement> {
+	private readonly VisualElement m_progress;
+	private const float BAR_WIDTH = 20f;
 
-        public IndeterminateProgressBar() : base(new VisualElement()) {
-            var progressBar = new VisualElement();
-            progressBar.style.flexGrow = 1;
-            progressBar.style.backgroundColor = new StyleColor(Color.gray);
-            progressBar.style.height = 4;
+	public IndeterminateProgressBar() : base(new VisualElement()) {
+		var progressBar = new VisualElement {
+			style = {
+				flexGrow = 1,
+				backgroundColor = new StyleColor(Color.gray),
+				height = 4
+			}
+		};
 
-            _progress = new VisualElement();
-            _progress.style.backgroundColor = new StyleColor(ColorRgba.Gold.ToColor());
-            _progress.style.height = Length.Percent(100);
-            _progress.style.width = new StyleLength(new Length(barWidth, LengthUnit.Percent));
+		m_progress = new VisualElement {
+			style = {
+				backgroundColor = new StyleColor(ColorRgba.Gold.ToColor()),
+				height = Length.Percent(100),
+				width = new StyleLength(new Length(BAR_WIDTH, LengthUnit.Percent))
+			}
+		};
 
-            progressBar.Add(_progress);
-            InnerElement.Add(progressBar);
-            StartAnimation();
-        }
+		progressBar.Add(m_progress);
+		InnerElement.Add(progressBar);
+		startAnimation();
+	}
 
-        private void StartAnimation() {
-            var animation = _progress.experimental.animation;
-            AnimateProgress(animation);
-        }
+	private void startAnimation() {
+		var animation = m_progress.experimental.animation;
+		animateProgress(animation);
+	}
 
-        private void AnimateProgress(ITransitionAnimations animation) {
-            animation.Start(0f, 100f - barWidth, 2000, (element, value) => _progress.style.left = new StyleLength(new Length(value, LengthUnit.Percent))).KeepAlive()
-            .OnCompleted(() => {
-                animation.Start(100f - barWidth, 0f, 2000, (element, value) => _progress.style.left = new StyleLength(new Length(value, LengthUnit.Percent))).KeepAlive()
-                .OnCompleted(() => AnimateProgress(animation)).Start();
-            }).Start();
-        }
-    }
+	private void animateProgress(ITransitionAnimations animation) {
+		animation.Start(0f, 100f - BAR_WIDTH, 2000, (element, value) => m_progress.style.left = new StyleLength(new Length(value, LengthUnit.Percent))).KeepAlive()
+			.OnCompleted(() => {
+				animation.Start(100f - BAR_WIDTH, 0f, 2000, (element, value) => m_progress.style.left = new StyleLength(new Length(value, LengthUnit.Percent))).KeepAlive()
+					.OnCompleted(() => animateProgress(animation)).Start();
+			}).Start();
+	}
 }

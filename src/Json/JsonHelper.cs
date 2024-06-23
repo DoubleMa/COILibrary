@@ -2,25 +2,27 @@
 using Newtonsoft.Json;
 using System.IO;
 
-namespace COILib.Json {
+namespace COILib.Json;
 
-    public static class JsonHelper {
+public static class JsonHelper {
 
-        public static string Serialize<T>(T toSerialize, string path = null, bool format = false) {
-            string result = Static.TryRun(() => JsonConvert.SerializeObject(toSerialize, format ? Formatting.Indented : Formatting.None), "{}");
-            if (path != null) Static.TryRun(() => File.WriteAllText(path, result));
-            return result;
-        }
+	public static string Serialize<T>(T toSerialize, string path = null, bool format = false) {
+		string result = Static.TryRun(() => JsonConvert.SerializeObject(toSerialize, format ? Formatting.Indented : Formatting.None), "{}");
+		if (path != null) {
+			Static.TryRun(() => File.WriteAllText(path, result));
+		}
 
-        public static T Deserialize<T>(string path, T defValue = default) => Static.TryRun(() => File.Exists(path) ? JsonConvert.DeserializeObject<T>(File.ReadAllText(path)) : defValue, defValue);
-    }
+		return result;
+	}
 
-    public class SerializableObject<T> where T : class, new() {
+	public static T Deserialize<T>(string path, T defValue = default) => Static.TryRun(() => File.Exists(path) ? JsonConvert.DeserializeObject<T>(File.ReadAllText(path)) : defValue, defValue);
+}
 
-        public string Json(string path = null, bool format = true) => JsonHelper.Serialize(this, path, format);
+public class SerializableObject<T> where T : class, new() {
 
-        public static T Deserialize(string path, T defValue = default) => JsonHelper.Deserialize(path, defValue);
+	public string Json(string path = null, bool format = true) => JsonHelper.Serialize(this, path, format);
 
-        public static T DeserializeNew(string path) => JsonHelper.Deserialize(path, new T());
-    }
+	public static T Deserialize(string path, T defValue = default) => JsonHelper.Deserialize(path, defValue);
+
+	public static T DeserializeNew(string path) => JsonHelper.Deserialize(path, new T());
 }
