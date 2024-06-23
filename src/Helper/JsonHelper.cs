@@ -2,13 +2,16 @@
 using Newtonsoft.Json;
 using System.IO;
 
-namespace COILib.Json;
+namespace COILib.Helper;
 
-public static class JsonHelper {
+public static class JsonHelper
+{
 
-    public static string Serialize<T>(T toSerialize, string path = null, bool format = false) {
+    public static string Serialize<T>(T toSerialize, string path = null, bool format = false)
+    {
         string result = Static.TryRun(() => JsonConvert.SerializeObject(toSerialize, format ? Formatting.Indented : Formatting.None), "{}");
-        if (path != null) {
+        if (path != null)
+        {
             Static.TryRun(() => File.WriteAllText(path, result));
         }
 
@@ -18,7 +21,8 @@ public static class JsonHelper {
     public static T Deserialize<T>(string path, T defValue = default) => Static.TryRun(() => File.Exists(path) ? JsonConvert.DeserializeObject<T>(File.ReadAllText(path)) : defValue, defValue);
 }
 
-public class SerializableObject<T> where T : class, new() {
+public class SerializableObject<T> where T : class, new()
+{
 
     public string Json(string path = null, bool format = true) => JsonHelper.Serialize(this, path, format);
 

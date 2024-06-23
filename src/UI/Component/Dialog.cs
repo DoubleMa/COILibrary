@@ -3,9 +3,6 @@ using Mafi.Localization;
 using Mafi.Unity.UiToolkit.Component;
 using Mafi.Unity.UiToolkit.Library;
 using System;
-using UnityEngine.UIElements;
-using Column = Mafi.Unity.UiToolkit.Library.Column;
-using Label = Mafi.Unity.UiToolkit.Library.Label;
 
 namespace COILib.UI.Component;
 
@@ -25,7 +22,7 @@ public class ConfirmDialog : Window {
     private void buildWindow() {
         GetBackgroundDecorator().SetBackground(ColorRgba.Black.SetA(150));
         this.BackgroundCover().HeightAuto().Width(500.px());
-        VisualElement overlay = new();
+        UnityEngine.UIElements.VisualElement overlay = new();
 
         m_confirmButton = new ButtonText("Confirm".AsLoc(), () => {
             m_onConfirm?.Invoke();
