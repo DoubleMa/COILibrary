@@ -1,25 +1,25 @@
 ﻿namespace COILib.General;
 
 public abstract class AInitializedClass {
-	private bool Initialized { get; set; }
+    private bool Initialized { get; set; }
 
-	protected abstract void OnInit();
+    protected abstract void OnInit();
 
-	public void Init() {
-		if (Initialized) {
-			return;
-		}
+    public void Init() {
+        if (Initialized) {
+            return;
+        }
 
-		OnInit();
-		Initialized = true;
-	}
+        OnInit();
+        Initialized = true;
+    }
 }
 
 public abstract class InstanceObject<T> : AInitializedClass where T : InstanceObject<T>, new() {
-	private static T s_instance;
-	public static T Instance => getInstance();
+    private static T s_instance;
+    public static T Instance => getInstance();
 
-	private static T getInstance() {
-		return Static.TryRun(() => s_instance ??= new T());
-	}
+    private static T getInstance() {
+        return Static.TryRun(() => s_instance ??= new T());
+    }
 }
